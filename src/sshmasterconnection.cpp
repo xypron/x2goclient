@@ -548,7 +548,6 @@ void SshMasterConnection::run()
         tcpProxySocket = new QTcpSocket();
         tcpProxySocket->setProxy( *tcpNetworkProxy );
         tcpProxySocket->connectToHost(host, port);
-        proxysocket = tcpProxySocket->socketDescriptor();
         if (!tcpProxySocket->waitForConnected(30000))
         {
             QString message=tr ( "Cannot connect to proxy server." );
@@ -560,6 +559,7 @@ void SshMasterConnection::run()
             quit();
             return;
         }
+        proxysocket = tcpProxySocket->socketDescriptor();
 #ifdef DEBUG
         x2goDebug << "Created HTTP proxy socket: " << proxysocket << endl;
 #endif
